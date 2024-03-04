@@ -27,11 +27,10 @@ class RadixConverter {
 	changeInput(event) {
 		const radix = event.currentTarget.id;
 		const value = event.currentTarget.value.split('.');
-		const valueInt = value[0] || 0;
-		const valueDec = value[1] || 0;
+		const valueInt = value[0] || "0";
+		const valueDec = value[1] || "0";
 		const integer = parseInt(valueInt, radix);
 		const decimal = parseInt(valueDec, radix) * Math.pow(radix, -(valueDec.length));
-		console.log(valueInt, valueDec, integer, decimal);
 		this._inputs.forEach(e => {
 			if (e.id != radix) {
 				e.value = (integer + decimal).toString(e.id);
