@@ -25,17 +25,19 @@ class RadixConverter {
 	}
 
 	changeInput(event) {
+		const value = event.currentTarget.value;
 		const radix = event.currentTarget.id;
-		const value = event.currentTarget.value.split('.');
-		const valueInt = value[0] || "0";
-		const valueDec = value[1] || "0";
-		const integer = parseInt(valueInt, radix);
-		const decimal = parseInt(valueDec, radix) * Math.pow(radix, -(valueDec.length));
-		this._inputs.forEach(e => {
-			if (e.id != radix) {
-				e.value = (integer + decimal).toString(e.id);
-			}
-		});
+		const result = this.convertRadix(value, radix);
+		this.inputs.forEach(e => e.value = result.toString(e.id));
+	}
+
+	convertRadix(value, radix) {
+		const a = value.split('.')[0] || 0;
+		const b = value.split('.')[1] || 0;
+		const int = parseInt(a, radix);
+		const dec = parseInt(b, radix) * Math.pow(radix, b.toString().length * -1);
+		const sign = Math.sign(int) == -1 ? -1 : 1;
+		return int + dec * sign;
 	}
 
 }
