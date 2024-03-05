@@ -28,7 +28,7 @@ class RadixConverter {
 		const value = event.currentTarget.value;
 		const radix = event.currentTarget.id;
 		const result = this.convertRadix(value, radix);
-		this.inputs.forEach(e => e.value = result.toString(e.id));
+		this._inputs.forEach(e => e.value = result.toString(e.id));
 	}
 
 	convertRadix(value, radix) {
@@ -36,7 +36,7 @@ class RadixConverter {
 		const b = value.split('.')[1] || 0;
 		const int = parseInt(a, radix);
 		const dec = parseInt(b, radix) * Math.pow(radix, b.toString().length * -1);
-		const sign = Math.sign(int) == -1 ? -1 : 1;
+		const sign = value.slice(0, 1) == '-' ? -1 : 1;
 		return int + dec * sign;
 	}
 
